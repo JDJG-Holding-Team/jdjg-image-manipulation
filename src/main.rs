@@ -5,6 +5,7 @@ fn main(){
     
     //crusty();
     // https://docs.rs/image/latest/image/
+    // hmm
     
     // will likely need to take in bytes
     
