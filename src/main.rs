@@ -2,7 +2,9 @@ use std::io::Cursor;
 use image::io::Reader as ImageReader;
 
 fn main(){
-    
+
+    // should be write an if statement and the else statement.
+
     //crusty();
     // https://docs.rs/image/latest/image/
     // hmm
