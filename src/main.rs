@@ -35,6 +35,13 @@ fn main(){
 }
 
 fn crusty(image_bytes : u128) -> u128{
+
+    // what bytes do I pass to this?
+    // I need to get bytesIO or bytes to be passed to this function (agh)
+    // Return same Image if the image fails.
+    // might want to fix local using nightly instead (that may be a problem.)
+    // agh
+
     const LOWEST_SIZE: i32 = 32;
     const HIGHEST_SIZE: i32 = 500;
     
