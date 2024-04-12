@@ -66,14 +66,16 @@ fn crusty(image_bytes: Vec<u8>) -> Vec<u8> {
 
 fn gadget(text: String) -> Vec<u8> {
 
+    let mut final_bytes: Vec<u8> = Vec::new();
     let gadget_img = ImageReader::open("./assets/gadget.png")?.decode()?;
+    gadget_img.write_to(&mut Cursor::new(&mut final_bytes));
 
     // gadget code
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L36
 
 
-    return gadget_img;
-    // placeholder for now.
+    return final_bytes;
+    
 }
 
 fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
@@ -86,7 +88,9 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
 
 fn call_text(text: String) -> Vec<u8> {
 
+    let mut final_bytes: Vec<u8> = Vec::new();
     let call_img = ImageReader::open("./assets/images/calling_template.png")?.decode()?;
+    call_img.write_to(&mut Cursor::new(&mut final_bytes));
 
     return call_img;
     // placeholder for rn.
