@@ -66,8 +66,12 @@ fn crusty(image_bytes: Vec<u8>) -> Vec<u8> {
 
 fn gadget(text: String) -> Vec<u8> {
 
+    // let font = FontRef::try_from_slice(include_bytes!("assets/fonts/verdana_edited.ttf")).unwrap();
+    // idk the import for this.
+
     let mut final_bytes: Vec<u8> = Vec::new();
-    let gadget_img = ImageReader::open("./assets/gadget.png")?.decode()?;
+    // let error_img = ImageReader::open("/assets/images/bad_output.png")?.decode()?;
+    let gadget_img = ImageReader::open("/assets/images/gadget.png")?.decode()?;
     gadget_img.write_to(&mut Cursor::new(&mut final_bytes));
 
     // gadget code
@@ -89,7 +93,7 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
 fn call_text(text: String) -> Vec<u8> {
 
     let mut final_bytes: Vec<u8> = Vec::new();
-    let call_img = ImageReader::open("./assets/images/calling_template.png")?.decode()?;
+    let call_img = ImageReader::open("/assets/images/calling_template.png")?.decode()?;
     call_img.write_to(&mut Cursor::new(&mut final_bytes));
 
     return final_bytes;
