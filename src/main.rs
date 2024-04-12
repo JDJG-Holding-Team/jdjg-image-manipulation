@@ -166,4 +166,6 @@ https://github.com/JDsProjects/JDBot/blob/master/utils/image.py
 Remeber rewrite stuff and delete stuff that isn't releveant ie all functions except invert2 unless you want to try to use two functions.
 Invert -> one way
 Invert2 - > different way
+Might even try writing pillow code to wand like gadget and whatnot to see how it would be.
+But this may work better completly in rust so.
 */
