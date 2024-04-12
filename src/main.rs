@@ -38,12 +38,15 @@ fn main() {
 // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L13
 // Rewrite this.
 
-fn crusty(image_bytes: u128) -> u128 {
+fn crusty(image_bytes: Vec<u8>) -> Vec<u8> {
     // what bytes do I pass to this?
     // I need to get bytesIO or bytes to be passed to this function (agh)
     // Return same Image if the image fails.
     // might want to fix local using nightly instead (that may be a problem.)
     // agh
+
+    // may need new data stream.
+    // this way if an error occurs it will pass the image_bytes back.
 
     const LOWEST_SIZE: i32 = 32;
     const HIGHEST_SIZE: i32 = 500;
