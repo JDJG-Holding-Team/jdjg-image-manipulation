@@ -48,13 +48,13 @@ fn crusty(image_bytes: Vec<u8>) -> Vec<u8> {
     // may need new data stream.
     // this way if an error occurs it will pass the image_bytes back.
 
-    const LOWEST_SIZE: i32 = 32;
-    const HIGHEST_SIZE: i32 = 500;
+    const WIDTH: u32 = 32;
+    const HEIGHT: u32 = 500;
 
     let mut final_bytes: Vec<u8> = Vec::new();
     let img = ImageReader::new(Cursor::new(image_bytes)).with_guessed_format()?.decode()?; 
 
-    img.resize(30, 500);
+    img.resize(WIDTH, HEIGHT);
 
     return image_bytes;
 
@@ -92,9 +92,8 @@ fn call_text(text: String) -> Vec<u8> {
     let call_img = ImageReader::open("./assets/images/calling_template.png")?.decode()?;
     call_img.write_to(&mut Cursor::new(&mut final_bytes));
 
-    return call_img;
-    // placeholder for rn.
-
+    return final_bytes;
+    
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L13
     // call_text stuff.
 }
