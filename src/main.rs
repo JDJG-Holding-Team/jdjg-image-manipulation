@@ -51,8 +51,10 @@ fn crusty(image_bytes: Vec<u8>) -> Vec<u8> {
     const LOWEST_SIZE: i32 = 32;
     const HIGHEST_SIZE: i32 = 500;
 
-    println!("{}", LOWEST_SIZE);
-    println!("{}", HIGHEST_SIZE);
+    let mut final_bytes: Vec<u8> = Vec::new();
+    let img = ImageReader::new(Cursor::new(image_bytes)).with_guessed_format()?.decode()?; 
+
+    img.resize(30, 500);
 
     return image_bytes;
 
@@ -63,9 +65,15 @@ fn crusty(image_bytes: Vec<u8>) -> Vec<u8> {
 // you don't need invert2 to be written.
 
 fn gadget(text: String) -> Vec<u8> {
-    return;
+
+    let gadget_img = ImageReader::open("./assets/gadget.png")?.decode()?;
+
     // gadget code
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L36
+
+
+    return gadget_img;
+    // placeholder for now.
 }
 
 fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
@@ -77,7 +85,11 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
 }
 
 fn call_text(text: String) -> Vec<u8> {
-    return;
+
+    let call_img = ImageReader::open("./assets/images/calling_template.png")?.decode()?;
+
+    return call_img;
+    // placeholder for rn.
 
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L13
     // call_text stuff.
