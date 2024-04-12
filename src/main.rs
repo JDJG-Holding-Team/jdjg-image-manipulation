@@ -1,4 +1,5 @@
 use image::io::Reader as ImageReader;
+use image::ImageFormat;
 use std::io::Cursor;
 
 fn main() {
@@ -84,6 +85,10 @@ fn gadget(text: String) -> Vec<u8> {
 
 fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
     // invert bytes and keep gifs as gifs, and other content the same etc.
+
+    let img = ImageReader::new(Cursor::new(image_bytes)).with_guessed_format()?.decode()?; 
+    // idk about inverting????
+
     return image_bytes;
 
     // invert
