@@ -1,18 +1,18 @@
-use std::io::Cursor;
 use image::io::Reader as ImageReader;
+use std::io::Cursor;
 
-fn main(){
+fn main() {
 
     // should be write an if statement and the else statement.
 
     //crusty();
     // https://docs.rs/image/latest/image/
     // hmm
-    
+
     // will likely need to take in bytes
-    
+
     /*
-    
+
     def crusty(raw_assets: bytes) -> discord.File:
     f = BytesIO()
 
@@ -29,19 +29,16 @@ fn main(){
 
     f.seek(0)
     return discord.File(f, f"crusty.{ext}")
-    
+
     */
-    
+
     //goal rewrite that from python to rust will likely only return to bytes though
-    
 }
 
 // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L13
 // Rewrite this.
 
-
-fn crusty(image_bytes : u128) -> u128{
-
+fn crusty(image_bytes: u128) -> u128 {
     // what bytes do I pass to this?
     // I need to get bytesIO or bytes to be passed to this function (agh)
     // Return same Image if the image fails.
@@ -50,35 +47,33 @@ fn crusty(image_bytes : u128) -> u128{
 
     const LOWEST_SIZE: i32 = 32;
     const HIGHEST_SIZE: i32 = 500;
-    
+
     println!("{}", LOWEST_SIZE);
     println!("{}", HIGHEST_SIZE);
-    
+
     return image_bytes;
-    
+
     //will be changed after this point.
     //idk if pass arg is right.
 }
 
 // you don't need invert2 to be written.
 
-fn gadget(text: &str) -> u128{
+fn gadget(text: String) -> u128 {
     return;
     // gadget code
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L36
 }
 
-fn invert(image_bytes: u128) -> u128{
-
+fn invert(image_bytes: u128) -> u128 {
     // invert bytes and keep gifs as gifs, and other content the same etc.
     return image_bytes;
 
-    // invert 
+    // invert
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L85
-
 }
 
-fn call_text(text: str&) -> u128{
+fn call_text(text: String) -> u128 {
     return;
 
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L13
@@ -159,7 +154,7 @@ def laugh2(raw_asset: bytes) -> tuple[BytesIO, typing.Literal["gif", "png"]]:
     return buff, gif
 */
 
-/* 
+/*
 petpet function.
 I think that's
 https://github.com/JDsProjects/JDBot/blob/master/utils/image.py
