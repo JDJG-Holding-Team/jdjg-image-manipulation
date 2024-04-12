@@ -62,13 +62,13 @@ fn crusty(image_bytes: Vec<u8>) -> Vec<u8> {
 
 // you don't need invert2 to be written.
 
-fn gadget(text: String) -> u128 {
+fn gadget(text: String) -> Vec<u8> {
     return;
     // gadget code
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L36
 }
 
-fn invert(image_bytes: u128) -> u128 {
+fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
     // invert bytes and keep gifs as gifs, and other content the same etc.
     return image_bytes;
 
@@ -76,7 +76,7 @@ fn invert(image_bytes: u128) -> u128 {
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L85
 }
 
-fn call_text(text: String) -> u128 {
+fn call_text(text: String) -> Vec<u8> {
     return;
 
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L13
