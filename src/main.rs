@@ -73,7 +73,9 @@ fn gadget(text: String) -> Vec<u8> {
     let mut final_bytes: Vec<u8> = Vec::new();
     // let error_img = ImageReader::open("/assets/images/bad_output.png")?.decode()?;
     let gadget_img = ImageReader::open("/assets/images/gadget.png")?.decode()?;
-    gadget_img.write_to(&mut Cursor::new(&mut final_bytes));
+
+    // gadget_img.write_to(&mut Cursor::new(&mut final_bytes));
+    // how do I get the ImageFormat for it?
 
     // gadget code
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L36
@@ -99,7 +101,9 @@ fn call_text(text: String) -> Vec<u8> {
 
     let mut final_bytes: Vec<u8> = Vec::new();
     let call_img = ImageReader::open("/assets/images/calling_template.png")?.decode()?;
-    call_img.write_to(&mut Cursor::new(&mut final_bytes));
+
+    // call_img.write_to(&mut Cursor::new(&mut final_bytes));
+    // how do I get the ImageFormat?
 
     return final_bytes;
     
