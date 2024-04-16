@@ -1,6 +1,8 @@
 use image::io::Reader as ImageReader;
 use image::ImageFormat;
 use std::io::Cursor;
+use image::io::Reader as ImageReader;
+use image::{imageops, ImageError, ImageFormat};
 
 fn main() {
 
@@ -44,17 +46,15 @@ fn crusty(image_bytes: Vec<u8>) -> Result<Vec<u8>, ImageError> {
     const HEIGHT: u32 = 500;
 
     let mut final_bytes: Vec<u8> = Vec::new();
-    let img = match Cursor::new(image_bytes).with_guessed_format() {
-      Ok(guess) => {
-        let img = ImageReader::new(guess.decode()?);
-        img.resize(WIDTH, HEIGHT);
-        img
-      },
-      Err(e) => ImageReader::open("/assets/images/bad_output.png")?.decode()?
+    let img = match ImageReader::new(Cursor::new(image_bytes)).with_guessed_format()?.decode() {
+        Ok(bytes) => {
+            bytes.resize(WIDTH, HEIGHT, imageops::Nearest);
+            bytes
+        },
+        Err(_) => ImageReader::open("/assets/images/bad_output.png")?.decode()?
     };
 
-    return Ok(image_bytes);
-
+    Ok(img.into_bytes())
 }
 
 // you don't need invert2 to be written.
