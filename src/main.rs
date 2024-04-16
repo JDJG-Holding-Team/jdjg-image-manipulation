@@ -44,7 +44,7 @@ fn crusty(image_bytes: Vec<u8>) -> Result<Vec<u8>, ImageError> {
     const HEIGHT: u32 = 500;
 
     let mut final_bytes: Vec<u8> = Vec::new();
-    let img = match Cursor::new(image_bytes)).with_guessed_format() {
+    let img = match Cursor::new(image_bytes).with_guessed_format() {
       Ok(guess) => ImageReader::new(guess.decode()?),
       Err(e) => ImageReader::open("/assets/images/bad_output.png")?.decode()?
     };
