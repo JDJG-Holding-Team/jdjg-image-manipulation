@@ -181,6 +181,11 @@ def laugh2(raw_asset: bytes) -> tuple[BytesIO, typing.Literal["gif", "png"]]:
 petpet function.
 I think that's
 https://github.com/JDsProjects/JDBot/blob/master/utils/image.py
+
+https://github.com/JDsProjects/RenDev-s-PIL-program
+(petpet original might refer to newer copies from people that I can license from ie MIT OR MPL)
+This is licensed under the JDJG's Programs project and agreed to allow me to use it under the license that i Have so.
+
 Remeber rewrite stuff and delete stuff that isn't releveant ie all functions except invert2 unless you want to try to use two functions.
 Invert -> one way
 Invert2 - > different way
