@@ -39,28 +39,20 @@ fn main() {
 // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L13
 // Rewrite this.
 
-fn crusty(image_bytes: Vec<u8>) -> Vec<u8> {
-    // what bytes do I pass to this?
-    // I need to get bytesIO or bytes to be passed to this function (agh)
-    // Return same Image if the image fails.
-    // might want to fix local using nightly instead (that may be a problem.)
-    // agh
-
-    // may need new data stream.
-    // this way if an error occurs it will pass the image_bytes back.
-
+fn crusty(image_bytes: Vec<u8>) -> Result<Vec<u8>, ImageError> {
     const WIDTH: u32 = 32;
     const HEIGHT: u32 = 500;
 
     let mut final_bytes: Vec<u8> = Vec::new();
-    let img = ImageReader::new(Cursor::new(image_bytes)).with_guessed_format()?.decode()?; 
+    let img = match Cursor::new(image_bytes)).with_guessed_format() {
+      Ok(guess) => ImageReader::new(guess.decode()?),
+      Err(e) => ImageReader::open("/assets/images/bad_output.png")?.decode()?
+    };
 
     img.resize(WIDTH, HEIGHT);
 
-    return image_bytes;
+    return Ok(image_bytes);
 
-    //will be changed after this point.
-    //idk if pass arg is right.
 }
 
 // you don't need invert2 to be written.
