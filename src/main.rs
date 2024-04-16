@@ -1,5 +1,4 @@
 use image::io::Reader as ImageReader;
-use image::ImageFormat;
 use std::io::Cursor;
 use image::io::Reader as ImageReader;
 use image::{imageops, ImageError, ImageFormat};
