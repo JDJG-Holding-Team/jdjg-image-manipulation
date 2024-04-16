@@ -64,7 +64,7 @@ fn gadget(text: String) -> Vec<u8> {
 
     let mut final_bytes: Vec<u8> = Vec::new();
     // let error_img = ImageReader::open("/assets/images/bad_output.png")?.decode()?;
-    let gadget_img = ImageReader::open("/assets/images/gadget.png")?.decode()?;
+    let gadget_img = ImageReader::open("/assets/images/gadget.png")?.decode().unwrap();
 
     // gadget_img.write_to(&mut Cursor::new(&mut final_bytes));
     // how do I get the ImageFormat for it?
@@ -80,7 +80,7 @@ fn gadget(text: String) -> Vec<u8> {
 fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
     // invert bytes and keep gifs as gifs, and other content the same etc.
 
-    let img = ImageReader::new(Cursor::new(image_bytes)).with_guessed_format()?.decode()?; 
+    let img = ImageReader::new(Cursor::new(image_bytes)).with_guessed_format()?.decode().unwrap(); 
     // idk about inverting????
 
     return image_bytes;
@@ -92,7 +92,7 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
 fn call_text(text: String) -> Vec<u8> {
 
     let mut final_bytes: Vec<u8> = Vec::new();
-    let call_img = ImageReader::open("/assets/images/calling_template.png")?.decode()?;
+    let call_img = ImageReader::open("/assets/images/calling_template.png")?.decode().unwrap();
 
     // call_img.write_to(&mut Cursor::new(&mut final_bytes));
     // how do I get the ImageFormat?
