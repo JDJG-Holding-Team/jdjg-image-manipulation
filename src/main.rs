@@ -80,7 +80,10 @@ fn gadget(text: String) -> Vec<u8> {
 fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
     // invert bytes and keep gifs as gifs, and other content the same etc.
 
-    let img = ImageReader::new(Cursor::new(image_bytes)).with_guessed_format().unwrap().decode().unwrap(); 
+    // make sure to crate bytes to save to or save to new image_bytes.
+    let img = ImageReader::new(Cursor::new(image_bytes.clone())).with_guessed_format().unwrap().decode().unwrap();
+    img.invert();
+
     // idk about inverting????
 
     return image_bytes;
