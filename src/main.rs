@@ -63,6 +63,8 @@ fn crusty(image_bytes: Vec<u8>) -> Result<Vec<u8>, ImageError> {
     };
 
     Ok(img.into_bytes())
+
+    // needs pyo3 or c bindings support.
 }
 
 // you don't need invert2 to be written.
@@ -93,6 +95,7 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
     
     let mut img = ImageReader::new(Cursor::new(image_bytes.clone())).with_guessed_format().unwrap().decode().unwrap();
     img.invert();
+    // you need to make all unwrap into error handling like crusty btw.
 
     // idk about inverting????
 
