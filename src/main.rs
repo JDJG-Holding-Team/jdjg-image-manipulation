@@ -86,7 +86,7 @@ fn gadget(mut text: String) -> Vec<u8> {
     let font = FontRef::try_from_slice(include_bytes!("assets/fonts/verdana_edited.ttf")).unwrap();
     // idk the import for this.
 
-    text = wrap_text(text.as_str().to_uppercase(), None);
+    text = wrap_text(text.to_uppercase().as_str(), None);
     // Needing to pass None is a little annoying.
 
     let mut final_bytes: Vec<u8> = Vec::new();
