@@ -64,7 +64,7 @@ fn crusty(image_bytes: Vec<u8>) -> Result<Vec<u8>, ImageError> {
 
             bytes
         }
-        Err(_) => ImageReader::open("/assets/images/bad_output.png")?.decode()?,
+        Err(_) => ImageReader::open("assets/images/bad_output.png")?.decode()?,
     };
 
     Ok(img.into_bytes())
@@ -83,15 +83,15 @@ fn wrap_text(text: &str, max_linesize: Option<usize>) -> String {
 }
 
 fn gadget(mut text: String) -> Vec<u8> {
-    let font = FontRef::try_from_slice(include_bytes!("/assets/fonts/verdana_edited.ttf")).unwrap();
+    let font = FontRef::try_from_slice(include_bytes!("assets/fonts/verdana_edited.ttf")).unwrap();
     // idk the import for this.
 
     text = wrap_text(text.to_uppercase().as_str(), None);
     // Needing to pass None is a little annoying.
 
     let mut final_bytes: Vec<u8> = Vec::new();
-    // let error_img = ImageReader::open("/assets/images/bad_output.png")?.decode()?;
-    let gadget_img = ImageReader::open("/assets/images/gadget.png")
+    // let error_img = ImageReader::open("assets/images/bad_output.png")?.decode()?;
+    let gadget_img = ImageReader::open("assets/images/gadget.png")
         .unwrap()
         .decode()
         .unwrap();
@@ -126,7 +126,7 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
 
 fn call_text(text: String) -> Vec<u8> {
     let mut final_bytes: Vec<u8> = Vec::new();
-    let call_img = ImageReader::open("/assets/images/calling_template.png")
+    let call_img = ImageReader::open("assets/images/calling_template.png")
         .unwrap()
         .decode()
         .unwrap();
