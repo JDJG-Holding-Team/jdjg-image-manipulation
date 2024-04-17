@@ -1,6 +1,8 @@
 use ab_glyph::{Font, FontRef, PxScale};
 use image::io::Reader as ImageReader;
+
 use image::{imageops, ImageError, ImageFormat, Rgba};
+use imageproc::drawing::{draw_text_mut};
 use std::io::Cursor;
 use textwrap::fill;
 
@@ -140,6 +142,7 @@ fn call_text(mut text: String) -> Vec<u8> {
     imageproc::drawing::draw_text_mut(&mut call_image, Rgba([0u8, 0u8, 0u8, 255u8]), 5, 5, scale, &font, &text);
    
     // only gadget is dynamic with it in its function (ie as scaled with gadget will be mut).
+
 
     call_image.write_to(&mut Cursor::new(&mut final_bytes), ImageFormat::Png).expect("TODO: panic message");
     return final_bytes;
