@@ -83,7 +83,7 @@ fn wrap_text(text: &str, max_linesize: Option<usize>) -> String {
 }
 
 fn gadget(mut text: String) -> Vec<u8> {
-    let font = FontRef::try_from_slice(include_bytes!("assets/fonts/verdana_edited.ttf")).unwrap();
+    let font = FontRef::try_from_slice(include_bytes!("/assets/fonts/verdana_edited.ttf")).unwrap();
     // idk the import for this.
 
     text = wrap_text(text.to_uppercase().as_str(), None);
