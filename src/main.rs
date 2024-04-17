@@ -73,15 +73,20 @@ fn crusty(image_bytes: Vec<u8>) -> Result<Vec<u8>, ImageError> {
 
 // you don't need invert2 to be written.
 
-fn wrap_text(text: &str, max_linesize: usize) -> String {
+const PADDING_PX: u32 = 10
+
+fn wrap_text(text: &str, max_linesize: Option<usize>) -> String {
     let text_size = text.len();
-    let line_count = text_size / max_linesize.max(1);
+    let line_count = text_size / max_linesize.unwrap_or(20).max(1);
     fill(text, (text_size + 2) / line_count)
 }
 
-fn gadget(text: String) -> Vec<u8> {
-    // let font = FontRef::try_from_slice(include_bytes!("assets/fonts/verdana_edited.ttf")).unwrap();
+fn gadget(mut text: String) -> Vec<u8> {
+    let font = FontRef::try_from_slice(include_bytes!("/assets/fonts/verdana_edited.ttf")).unwrap();
     // idk the import for this.
+
+    text = wrap_text(text.to_uppercase(), None)
+    // Needing to pass None is a little annoying.
 
     let mut final_bytes: Vec<u8> = Vec::new();
     // let error_img = ImageReader::open("/assets/images/bad_output.png")?.decode()?;
