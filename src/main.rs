@@ -1,6 +1,7 @@
-use std::io::Cursor;
 use image::io::Reader as ImageReader;
 use image::{imageops, ImageError, ImageFormat};
+use std::io::Cursor;
+use textwrap::fill;
 
 fn main() {
 
@@ -44,7 +45,10 @@ fn crusty(image_bytes: Vec<u8>) -> Result<Vec<u8>, ImageError> {
     const HEIGHT: u32 = 500;
 
     let mut final_bytes: Vec<u8> = Vec::new();
-    let img = match ImageReader::new(Cursor::new(image_bytes)).with_guessed_format()?.decode() {
+    let img = match ImageReader::new(Cursor::new(image_bytes))
+        .with_guessed_format()?
+        .decode()
+    {
         Ok(bytes) => {
             bytes.resize(WIDTH, HEIGHT, imageops::Nearest);
             /*
@@ -58,8 +62,8 @@ fn crusty(image_bytes: Vec<u8>) -> Result<Vec<u8>, ImageError> {
             */
 
             bytes
-        },
-        Err(_) => ImageReader::open("/assets/images/bad_output.png")?.decode()?
+        }
+        Err(_) => ImageReader::open("/assets/images/bad_output.png")?.decode()?,
     };
 
     Ok(img.into_bytes())
@@ -69,14 +73,22 @@ fn crusty(image_bytes: Vec<u8>) -> Result<Vec<u8>, ImageError> {
 
 // you don't need invert2 to be written.
 
-fn gadget(text: String) -> Vec<u8> {
+fn wrap_text(text: &str, max_linesize: usize) -> String {
+    let text_size = text.len();
+    let line_count = text_size / max_linesize.max(1);
+    fill(text, (text_size + 2) / line_count)
+}
 
+fn gadget(text: String) -> Vec<u8> {
     // let font = FontRef::try_from_slice(include_bytes!("assets/fonts/verdana_edited.ttf")).unwrap();
     // idk the import for this.
 
     let mut final_bytes: Vec<u8> = Vec::new();
     // let error_img = ImageReader::open("/assets/images/bad_output.png")?.decode()?;
-    let gadget_img = ImageReader::open("/assets/images/gadget.png").unwrap().decode().unwrap();
+    let gadget_img = ImageReader::open("/assets/images/gadget.png")
+        .unwrap()
+        .decode()
+        .unwrap();
 
     // gadget_img.write_to(&mut Cursor::new(&mut final_bytes));
     // how do I get the ImageFormat for it?
@@ -84,16 +96,17 @@ fn gadget(text: String) -> Vec<u8> {
     // gadget code
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L36
 
-
     return final_bytes;
-    
 }
 
 fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
     // invert bytes and keep gifs as gifs, and other content the same etc.
 
-    
-    let mut img = ImageReader::new(Cursor::new(image_bytes.clone())).with_guessed_format().unwrap().decode().unwrap();
+    let mut img = ImageReader::new(Cursor::new(image_bytes.clone()))
+        .with_guessed_format()
+        .unwrap()
+        .decode()
+        .unwrap();
     img.invert();
     // you need to make all unwrap into error handling like crusty btw.
 
@@ -106,15 +119,17 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
 }
 
 fn call_text(text: String) -> Vec<u8> {
-
     let mut final_bytes: Vec<u8> = Vec::new();
-    let call_img = ImageReader::open("/assets/images/calling_template.png").unwrap().decode().unwrap();
+    let call_img = ImageReader::open("/assets/images/calling_template.png")
+        .unwrap()
+        .decode()
+        .unwrap();
 
     // call_img.write_to(&mut Cursor::new(&mut final_bytes));
     // how do I get the ImageFormat?
 
     return final_bytes;
-    
+
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L13
     // call_text stuff.
 }
