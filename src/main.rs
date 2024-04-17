@@ -126,7 +126,7 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
 
 fn call_text(mut text: String) -> Vec<u8> {
 
-    text = fill(text, 33);
+    text = fill(text.as_str(), 33);
 
     let mut final_bytes: Vec<u8> = Vec::new();
     let call_img = ImageReader::open("../assets/images/calling_template.png")
