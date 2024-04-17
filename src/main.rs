@@ -193,7 +193,7 @@ def laugh_frame2(BASE, LAUGH_IMAGE: Image.Image, asset: Image.Image) -> Image.Im
 def laugh2(raw_asset: bytes) -> tuple[BytesIO, typing.Literal["gif", "png"]]:
     buff = BytesIO()
 
-    with Image.open("../../assets/images/laugh2.png").convert("RGBA") as template:
+    with Image.open("../assets/images/laugh2.png").convert("RGBA") as template:
         with Image.new("RGBA", (template.width, template.height), "white") as canvas:
             with Image.open(BytesIO(raw_asset)) as asset:
                 gif = getattr(asset, "is_animated", False)
