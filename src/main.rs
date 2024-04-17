@@ -47,6 +47,16 @@ fn crusty(image_bytes: Vec<u8>) -> Result<Vec<u8>, ImageError> {
     let img = match ImageReader::new(Cursor::new(image_bytes)).with_guessed_format()?.decode() {
         Ok(bytes) => {
             bytes.resize(WIDTH, HEIGHT, imageops::Nearest);
+            /*
+            img.filter3x3([
+            1, 1, 1,
+            1, 1, 1,
+            1, 1, 1
+            ]);
+
+            Replacement version but We need similar results and to have it work with a gif.
+            */
+
             bytes
         },
         Err(_) => ImageReader::open("/assets/images/bad_output.png")?.decode()?
