@@ -129,20 +129,33 @@ fn call_text(mut text: String) -> Vec<u8> {
     text = fill(text.as_str(), 33);
 
     let mut final_bytes: Vec<u8> = Vec::new();
-    let call_img = ImageReader::open("../assets/images/calling_template.png")
+    let call_image = image::open("../assets/images/calling_template.jpg").unwrap().to_rgba8();
         .unwrap()
         .decode()
         .unwrap();
 
-    // font with size 35
-    // actually the font uses size 35 mostly.
-    // python -> font = ImageFont.truetype("assets/fonts/verdana_edited.ttf", 35)
-    // only gadget is dynamic with it in its function.
+    
+    let font = FontRef::try_from_slice(include_bytes!("../assets/fonts/verdana_edited.ttf")).unwrap();
+    let scale = PxScale::from(35.0);
+    let font = font.as_scaled(scale);
 
-    // call_img.write_to(&mut Cursor::new(&mut final_bytes));
-    // how do I get the ImageFormat?
+    // errors here return the error img to le bytes instead.
 
+    draw_text_mut(
+        &mut call_image,
+        Rgba([0u8, 0u8, 0u8, 255u8]),
+        5,
+        5,
+        font,
+        &text
+    );
+   
+    // only gadget is dynamic with it in its function (ie as scaled with gadget will be mut).
+
+    call_img.write_to(&mut Cursor::new(&mut final_bytes), ImageFormat::Png);
     return final_bytes;
+
+    // needs to get the function to use pyo3.
 
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L13
     // call_text stuff.
