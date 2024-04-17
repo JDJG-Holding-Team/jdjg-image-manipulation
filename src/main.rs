@@ -1,6 +1,7 @@
-use ab_glyph::{FontRef, PxScale};
+use ab_glyph::{Font, FontRef, PxScale};
 use image::io::Reader as ImageReader;
-use image::{imageops, ImageError, ImageFormat};
+
+use image::{imageops, ImageError, ImageFormat, Rgba};
 use imageproc::drawing::{draw_text_mut};
 use std::io::Cursor;
 use textwrap::fill;
@@ -130,26 +131,20 @@ fn call_text(mut text: String) -> Vec<u8> {
     text = fill(text.as_str(), 33);
 
     let mut final_bytes: Vec<u8> = Vec::new();
-    let call_image = image::open("../assets/images/calling_template.jpg").unwrap().to_rgba8();
+    let mut call_image = image::open("../assets/images/calling_template.jpg").unwrap().to_rgba8();
     
     let font = FontRef::try_from_slice(include_bytes!("../assets/fonts/verdana_edited.ttf")).unwrap();
     let scale = PxScale::from(35.0);
-    let font = font.as_scaled(scale);
+    let font = font.as_scaled(scale).font.clone();
 
     // errors here return the error img to le bytes instead.
 
-    draw_text_mut(
-        &mut call_image,
-        Rgba([0u8, 0u8, 0u8, 255u8]),
-        5,
-        5,
-        font,
-        &text
-    );
+    imageproc::drawing::draw_text_mut(&mut call_image, Rgba([0u8, 0u8, 0u8, 255u8]), 5, 5, scale, &font, &text);
    
     // only gadget is dynamic with it in its function (ie as scaled with gadget will be mut).
 
-    call_image.write_to(&mut Cursor::new(&mut final_bytes), ImageFormat::Png).unwrap();
+
+    call_image.write_to(&mut Cursor::new(&mut final_bytes), ImageFormat::Png).expect("TODO: panic message");
     return final_bytes;
 
     // needs to get the function to use pyo3.
