@@ -124,12 +124,20 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L85
 }
 
-fn call_text(text: String) -> Vec<u8> {
+fn call_text(mut text: String) -> Vec<u8> {
+
+    text = fill(text, 33)
+
     let mut final_bytes: Vec<u8> = Vec::new();
     let call_img = ImageReader::open("../assets/images/calling_template.png")
         .unwrap()
         .decode()
         .unwrap();
+
+    // font with size 35
+    // actually the font uses size 35 mostly.
+    // python -> font = ImageFont.truetype("assets/fonts/verdana_edited.ttf", 35)
+    // only gadget is dynamic with it in its function.
 
     // call_img.write_to(&mut Cursor::new(&mut final_bytes));
     // how do I get the ImageFormat?
