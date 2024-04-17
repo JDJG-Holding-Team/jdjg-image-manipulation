@@ -130,7 +130,6 @@ fn call_text(mut text: String) -> Vec<u8> {
 
     let mut final_bytes: Vec<u8> = Vec::new();
     let call_image = image::open("../assets/images/calling_template.jpg").unwrap().to_rgba8();
-
     
     let font = FontRef::try_from_slice(include_bytes!("../assets/fonts/verdana_edited.ttf")).unwrap();
     let scale = PxScale::from(35.0);
