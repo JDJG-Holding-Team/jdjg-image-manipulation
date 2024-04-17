@@ -1,3 +1,4 @@
+edition = 2018
 [package]
 name = "jdjg-image-manipulation"
 version = "0.1.0"
