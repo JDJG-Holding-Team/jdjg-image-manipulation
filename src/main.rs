@@ -1,6 +1,7 @@
 use ab_glyph::{FontRef, PxScale};
 use image::io::Reader as ImageReader;
 use image::{imageops, ImageError, ImageFormat};
+use imageproc::drawing::{draw_text_mut};
 use std::io::Cursor;
 use textwrap::fill;
 
@@ -148,7 +149,7 @@ fn call_text(mut text: String) -> Vec<u8> {
    
     // only gadget is dynamic with it in its function (ie as scaled with gadget will be mut).
 
-    call_img.write_to(&mut Cursor::new(&mut final_bytes), ImageFormat::Png);
+    call_image.write_to(&mut Cursor::new(&mut final_bytes), ImageFormat::Png).unwrap();
     return final_bytes;
 
     // needs to get the function to use pyo3.
