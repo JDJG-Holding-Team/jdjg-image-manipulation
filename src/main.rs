@@ -1,11 +1,19 @@
+use std::convert::TryInto;
 use ab_glyph::{Font, FontRef, PxScale};
-use image::io::Reader as ImageReader;
+use image::io::{Reader as ImageReader, Reader};
 use image::{imageops, ImageError, ImageFormat, Rgba};
 use std::io::Cursor;
+use std::path::Path;
+use pyo3::impl_::wrap::SomeWrap;
 use textwrap::fill;
 
 fn main() {
 
+    println!("{}", wrap_text("Test", Some(2)));
+    
+    gadget("Test".to_string());
+    println!("Test: {:?}", Rgba([255u8, 255u8, 255u8, 255u8]).wrap().unwrap());
+    
     // should be write an if statement and the else statement.
 
     //crusty();
@@ -86,19 +94,21 @@ fn gadget(mut text: String) -> Vec<u8> {
     let font = FontRef::try_from_slice(include_bytes!("../assets/fonts/verdana_edited.ttf")).unwrap();
     // idk the import for this.
 
-    text = wrap_text(text.to_uppercase().as_str(), None);
+    text = wrap_text(text.to_uppercase().as_str(), Some(4));
     // Needing to pass None is a little annoying.
 
     let mut final_bytes: Vec<u8> = Vec::new();
     // let error_img = ImageReader::open("../assets/images/bad_output.png")?.decode()?;
-    let gadget_img = ImageReader::open("../assets/images/gadget.png")
-        .unwrap()
-        .decode()
+    let gadget_img = ImageReader::open(Path::new("./assets/images/gadget.png"))
         .unwrap();
-
     // gadget_img.write_to(&mut Cursor::new(&mut final_bytes));
-    // how do I get the ImageFormat for it?
+    // how do I get the ImageFormat for it
+    
+    let gadget_format = gadget_img.format().unwrap();
+    let gadget_img = gadget_img.decode().unwrap();
 
+    gadget_img.write_to(&mut Cursor::new(&mut final_bytes), gadget_format).expect("TODO: panic message");
+    
     // gadget code
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L36
 
@@ -113,6 +123,7 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
         .unwrap()
         .decode()
         .unwrap();
+    
     img.invert();
     // you need to make all unwrap into error handling like crusty btw.
 
@@ -125,7 +136,6 @@ fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
 }
 
 fn call_text(mut text: String) -> Vec<u8> {
-
     text = fill(text.as_str(), 33);
 
     let mut final_bytes: Vec<u8> = Vec::new();
@@ -225,17 +235,17 @@ def laugh2(raw_asset: bytes) -> tuple[BytesIO, typing.Literal["gif", "png"]]:
 */
 
 /*
-petpet function.
-I think that's
-https://github.com/JDsProjects/JDBot/blob/master/utils/image.py
-
-https://github.com/JDsProjects/RenDev-s-PIL-program
-(petpet original might refer to newer copies from people that I can license from ie MIT OR MPL)
-This is licensed under the JDJG's Programs project and agreed to allow me to use it under the license that i Have so.
-
-Remeber rewrite stuff and delete stuff that isn't releveant ie all functions except invert2 unless you want to try to use two functions.
-Invert -> one way
-Invert2 - > different way
-Might even try writing pillow code to wand like gadget and whatnot to see how it would be.
-But this may work better completly in rust so.
+    petpet function.
+    I think that's
+    https://github.com/JDsProjects/JDBot/blob/master/utils/image.py
+    
+    https://github.com/JDsProjects/RenDev-s-PIL-program
+    (petpet original might refer to newer copies from people that I can license from ie MIT OR MPL)
+    This is licensed under the JDJG's Programs project and agreed to allow me to use it under the license that i Have so.
+    
+    Remeber rewrite stuff and delete stuff that isn't releveant ie all functions except invert2 unless you want to try to use two functions.
+    Invert -> one way
+    Invert2 - > different way
+    Might even try writing pillow code to wand like gadget and whatnot to see how it would be.
+    But this may work better completly in rust so.
 */
