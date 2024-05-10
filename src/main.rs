@@ -4,16 +4,19 @@ use image::io::{Reader as ImageReader, Reader};
 use image::{imageops, ImageError, ImageFormat, Rgba};
 use std::io::Cursor;
 use std::path::Path;
+use imageproc::definitions::Image;
+use pyo3::ffi::{getattrfunc, getattrofunc};
+use pyo3::impl_::trampoline::getattrofunc;
 use pyo3::impl_::wrap::SomeWrap;
+use pyo3::PyObject;
 use textwrap::fill;
 
 fn main() {
-
     println!("{}", wrap_text("Test", Some(2)));
-    
+
     gadget("Test".to_string());
     println!("Test: {:?}", Rgba([255u8, 255u8, 255u8, 255u8]).wrap().unwrap());
-    
+
     // should be write an if statement and the else statement.
 
     //crusty();
@@ -91,44 +94,44 @@ fn wrap_text(text: &str, max_linesize: Option<usize>) -> String {
 }
 
 fn gadget(mut text: String) -> Vec<u8> {
-    let font = FontRef::try_from_slice(include_bytes!("../assets/fonts/verdana_edited.ttf")).unwrap();
-    // idk the import for this.
-
+    let font = match FontRef::try_from_slice(include_bytes!("../assets/fonts/verdana_edited.ttf")) {
+        Ok(font) => font,
+        Err(error) => panic!("TODO: panic message {}", error)
+    };
+    
     text = wrap_text(text.to_uppercase().as_str(), Some(4));
-    // Needing to pass None is a little annoying.
 
     let mut final_bytes: Vec<u8> = Vec::new();
-    // let error_img = ImageReader::open("../assets/images/bad_output.png")?.decode()?;
+
     let gadget_img = ImageReader::open(Path::new("./assets/images/gadget.png"))
         .unwrap();
-    // gadget_img.write_to(&mut Cursor::new(&mut final_bytes));
-    // how do I get the ImageFormat for it
-    
+
     let gadget_format = gadget_img.format().unwrap();
     let gadget_img = gadget_img.decode().unwrap();
 
     gadget_img.write_to(&mut Cursor::new(&mut final_bytes), gadget_format).expect("TODO: panic message");
-    
+
     // gadget code
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L36
-
+    
     return final_bytes;
 }
 
-fn invert(image_bytes: Vec<u8>) -> Vec<u8> {
+fn invert(mut image_bytes: Vec<u8>) -> Vec<u8> {
     // invert bytes and keep gifs as gifs, and other content the same etc.
 
     let mut img = ImageReader::new(Cursor::new(image_bytes.clone()))
         .with_guessed_format()
         .unwrap()
         .decode()
-        .unwrap();
-    
+        .unwrap_or_else(|_| ImageReader::open("../assets/images/bad_output.png").unwrap().decode().unwrap());
+
     img.invert();
     // you need to make all unwrap into error handling like crusty btw.
 
-    // idk about inverting????
 
+    img.write_to(&mut Cursor::new(&mut image_bytes), ImageFormat::Png).expect("TODO: panic message");
+    
     return image_bytes;
 
     // invert
@@ -140,7 +143,7 @@ fn call_text(mut text: String) -> Vec<u8> {
 
     let mut final_bytes: Vec<u8> = Vec::new();
     let mut call_image = image::open("../assets/images/calling_template.jpg").unwrap().to_rgba8();
-    
+
     let font = FontRef::try_from_slice(include_bytes!("../assets/fonts/verdana_edited.ttf")).unwrap();
     let scale = PxScale::from(35.0);
     let font = font.as_scaled(scale).font.clone();
@@ -148,7 +151,7 @@ fn call_text(mut text: String) -> Vec<u8> {
     // errors here return the error img to le bytes instead.
 
     imageproc::drawing::draw_text_mut(&mut call_image, Rgba([0u8, 0u8, 0u8, 255u8]), 5, 5, scale, &font, &text);
-   
+
     // only gadget is dynamic with it in its function (ie as scaled with gadget will be mut).
 
     call_image.write_to(&mut Cursor::new(&mut final_bytes), ImageFormat::Png).expect("TODO: panic message");
@@ -159,6 +162,19 @@ fn call_text(mut text: String) -> Vec<u8> {
     // https://github.com/JDsProjects/JDBot/blob/0e5d2f5543b2ae0951aeb8824efd51e0da7ec739/utils/image.py#L13
     // call_text stuff.
 }
+
+fn laugh_frame() -> Vec<u8> {
+    //TODO: Create laugh frame function
+}
+
+unsafe fn laugh(raw_asset: Vec<u8>) -> Vec<u8> {
+    let buff = Cursor::new(Vec::new());
+    let laugh = ImageReader::open(Path::new("./assets/images/laugh.png")).unwrap().decode().unwrap().to_rgba8(); 
+    let asset = ImageReader::new(Cursor::new(raw_asset)).with_guessed_format().unwrap().decode().unwrap();   
+    // TODO: how to look is the asset is animated
+    
+}
+
 
 // both laugh stuff
 
