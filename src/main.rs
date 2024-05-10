@@ -163,17 +163,17 @@ fn call_text(mut text: String) -> Vec<u8> {
     // call_text stuff.
 }
 
-fn laugh_frame() -> Vec<u8> {
-    //TODO: Create laugh frame function
-}
+// fn laugh_frame() -> Vec<u8> {
+//     //TODO: Create laugh frame function
+// }
 
-unsafe fn laugh(raw_asset: Vec<u8>) -> Vec<u8> {
-    let buff = Cursor::new(Vec::new());
-    let laugh = ImageReader::open(Path::new("./assets/images/laugh.png")).unwrap().decode().unwrap().to_rgba8(); 
-    let asset = ImageReader::new(Cursor::new(raw_asset)).with_guessed_format().unwrap().decode().unwrap();   
-    // TODO: how to look is the asset is animated
-    
-}
+// unsafe fn laugh(raw_asset: Vec<u8>) -> Vec<u8> {
+//     let buff = Cursor::new(Vec::new());
+//     let laugh = ImageReader::open(Path::new("./assets/images/laugh.png")).unwrap().decode().unwrap().to_rgba8(); 
+//     let asset = ImageReader::new(Cursor::new(raw_asset)).with_guessed_format().unwrap().decode().unwrap();   
+//     // TODO: how to look is the asset is animated
+
+// }
 
 
 // both laugh stuff
